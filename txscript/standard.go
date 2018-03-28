@@ -7,9 +7,9 @@ package txscript
 import (
 	"fmt"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
 )
 
 const (

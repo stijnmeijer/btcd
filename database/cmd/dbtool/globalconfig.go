@@ -10,11 +10,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/database"
-	_ "github.com/btcsuite/btcd/database/ffldb"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/database"
+	_ "github.com/stijnmeijer/btcd/database/ffldb"
+	"github.com/stijnmeijer/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
 )
 
 var (
@@ -36,6 +36,7 @@ type config struct {
 	TestNet3       bool   `long:"testnet" description:"Use the test network"`
 	RegressionTest bool   `long:"regtest" description:"Use the regression test network"`
 	SimNet         bool   `long:"simnet" description:"Use the simulation test network"`
+	HydraNet			 bool		`long:"hydranet" description:"Use the Hydra network"`
 }
 
 // fileExists reports whether the named file or directory exists.
@@ -96,6 +97,10 @@ func setupGlobalConfig() error {
 	if cfg.SimNet {
 		numNets++
 		activeNetParams = &chaincfg.SimNetParams
+	}
+	if cfg.HydraNet {
+		numNets++
+		activeNetParams = &chaincfg.HydraNetParams
 	}
 	if numNets > 1 {
 		return errors.New("The testnet, regtest, and simnet params " +

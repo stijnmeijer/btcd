@@ -9,11 +9,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/database"
-	_ "github.com/btcsuite/btcd/database/ffldb"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/database"
+	_ "github.com/stijnmeijer/btcd/database/ffldb"
+	"github.com/stijnmeijer/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
 	flags "github.com/jessevdk/go-flags"
 )
 
@@ -39,6 +39,7 @@ type config struct {
 	TestNet3       bool   `long:"testnet" description:"Use the test network"`
 	RegressionTest bool   `long:"regtest" description:"Use the regression test network"`
 	SimNet         bool   `long:"simnet" description:"Use the simulation test network"`
+	HydraNet			 bool		`long:"hydranet" description:"Use the Hydra network"`
 	InFile         string `short:"i" long:"infile" description:"File containing the block(s)"`
 	TxIndex        bool   `long:"txindex" description:"Build a full hash-based transaction index which makes all transactions available via the getrawtransaction RPC"`
 	AddrIndex      bool   `long:"addrindex" description:"Build a full address-based transaction index which makes the searchrawtransactions RPC available"`
@@ -120,6 +121,10 @@ func loadConfig() (*config, []string, error) {
 	if cfg.SimNet {
 		numNets++
 		activeNetParams = &chaincfg.SimNetParams
+	}
+	if cfg.HydraNet {
+		numNets++
+		activeNetParams = &chaincfg.HydraNetParams
 	}
 	if numNets > 1 {
 		str := "%s: The testnet, regtest, and simnet params can't be " +

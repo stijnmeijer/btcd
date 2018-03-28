@@ -87,6 +87,7 @@ the following constants:
 	wire.TestNet  (Regression test network)
 	wire.TestNet3 (Test network version 3)
 	wire.SimNet   (Simulation test network)
+  wire.HydraNet (Hydra network)
 
 Determining Message Type
 

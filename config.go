@@ -20,14 +20,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/btcsuite/btcd/blockchain"
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcd/connmgr"
-	"github.com/btcsuite/btcd/database"
-	_ "github.com/btcsuite/btcd/database/ffldb"
-	"github.com/btcsuite/btcd/mempool"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/blockchain"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/chaincfg/chainhash"
+	"github.com/stijnmeijer/btcd/connmgr"
+	"github.com/stijnmeijer/btcd/database"
+	_ "github.com/stijnmeijer/btcd/database/ffldb"
+	"github.com/stijnmeijer/btcd/mempool"
+	"github.com/stijnmeijer/btcutil"
 	"github.com/btcsuite/go-socks/socks"
 	flags "github.com/jessevdk/go-flags"
 )
@@ -130,6 +130,7 @@ type config struct {
 	TestNet3             bool          `long:"testnet" description:"Use the test network"`
 	RegressionTest       bool          `long:"regtest" description:"Use the regression test network"`
 	SimNet               bool          `long:"simnet" description:"Use the simulation test network"`
+	HydraNet						 bool					 `long:"hydranet" description:"Use the Hydra network"`
 	AddCheckpoints       []string      `long:"addcheckpoint" description:"Add a custom checkpoint.  Format: '<height>:<hash>'"`
 	DisableCheckpoints   bool          `long:"nocheckpoints" description:"Disable built-in checkpoints.  Don't do this unless you know what you're doing."`
 	DbType               string        `long:"dbtype" description:"Database backend to use for the Block Chain"`
@@ -538,6 +539,12 @@ func loadConfig() (*config, []string, error) {
 		numNets++
 		// Also disable dns seeding on the simulation test network.
 		activeNetParams = &simNetParams
+		cfg.DisableDNSSeed = true
+	}
+	if cfg.HydraNet {
+		numNets++
+		// Also disable dns seeding on the Hydra network.
+		activeNetParams = &hydraNetParams
 		cfg.DisableDNSSeed = true
 	}
 	if numNets > 1 {

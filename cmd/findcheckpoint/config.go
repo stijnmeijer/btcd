@@ -9,11 +9,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/database"
-	_ "github.com/btcsuite/btcd/database/ffldb"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/database"
+	_ "github.com/stijnmeijer/btcd/database/ffldb"
+	"github.com/stijnmeijer/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
 	flags "github.com/jessevdk/go-flags"
 )
 
@@ -40,6 +40,7 @@ type config struct {
 	TestNet3       bool   `long:"testnet" description:"Use the test network"`
 	RegressionTest bool   `long:"regtest" description:"Use the regression test network"`
 	SimNet         bool   `long:"simnet" description:"Use the simulation test network"`
+	HydraNet			 bool		`long:"hydranet" description:"Use the Hydra network"`
 	NumCandidates  int    `short:"n" long:"numcandidates" description:"Max num of checkpoint candidates to show {1-20}"`
 	UseGoOutput    bool   `short:"g" long:"gooutput" description:"Display the candidates using Go syntax that is ready to insert into the btcchain checkpoint list"`
 }
@@ -108,6 +109,10 @@ func loadConfig() (*config, []string, error) {
 	if cfg.SimNet {
 		numNets++
 		activeNetParams = &chaincfg.SimNetParams
+	}
+	if cfg.HydraNet {
+		numNets++
+		activeNetParams = &chaincfg.HydraNetParams
 	}
 	if numNets > 1 {
 		str := "%s: The testnet, regtest, and simnet params can't be " +

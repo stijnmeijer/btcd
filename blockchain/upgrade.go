@@ -9,9 +9,9 @@ import (
 	"container/list"
 	"fmt"
 
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcd/database"
-	"github.com/btcsuite/btcd/wire"
+	"github.com/stijnmeijer/btcd/chaincfg/chainhash"
+	"github.com/stijnmeijer/btcd/database"
+	"github.com/stijnmeijer/btcd/wire"
 )
 
 const (

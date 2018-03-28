@@ -15,11 +15,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcd/rpcclient"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/chaincfg/chainhash"
+	"github.com/stijnmeijer/btcd/rpcclient"
+	"github.com/stijnmeijer/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
 )
 
 const (
@@ -114,6 +114,8 @@ func New(activeNet *chaincfg.Params, handlers *rpcclient.NotificationHandlers,
 		extraArgs = append(extraArgs, "--regtest")
 	case wire.SimNet:
 		extraArgs = append(extraArgs, "--simnet")
+	case wire.HydraNet:
+		extraArgs = append(extraArgs, "--hydra")
 	default:
 		return nil, fmt.Errorf("rpctest.New must be called with one " +
 			"of the supported chain networks")

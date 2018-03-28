@@ -36,7 +36,7 @@ differences between btcd and bitcoind as far as how RPCs are serviced:
   further details on why they were separated.  This means that if you are
   talking directly to btcd, only chain-related RPCs are available.  However both
   chain-related and wallet-related RPCs are available via
-  [btcwallet](https://github.com/btcsuite/btcwallet).
+  [btcwallet](https://github.com/stijnmeijer/btcwallet).
 * btcd is secure by default which means that the RPC connection is TLS-enabled
   by default
 * btcd provides access to the API through both
@@ -44,7 +44,7 @@ differences between btcd and bitcoind as far as how RPCs are serviced:
   [Websockets](http://en.wikipedia.org/wiki/WebSocket)
 
 Websockets are the preferred transport for btcd RPC and are used by applications
-such as [btcwallet](https://github.com/btcsuite/btcwallet) for inter-process
+such as [btcwallet](https://github.com/stijnmeijer/btcwallet) for inter-process
 communication with btcd.  The websocket connection endpoint for btcd is
 `wss://your_ip_or_domain:8334/ws`.
 
@@ -1095,7 +1095,7 @@ package main
 
 import (
 	"github.com/btcsuite/btcrpcclient"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcutil"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -1156,9 +1156,9 @@ package main
 
 import (
 	"github.com/btcsuite/btcrpcclient"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg/chainhash"
+	"github.com/stijnmeijer/btcd/wire"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -1248,9 +1248,9 @@ package main
 
 import (
 	"github.com/btcsuite/btcrpcclient"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"github.com/btcsuite/btcd/wire"
+	"github.com/stijnmeijer/btcutil"
+	"github.com/stijnmeijer/btcd/chaincfg/chainhash"
+	"github.com/stijnmeijer/btcd/wire"
 	"io/ioutil"
 	"log"
 	"path/filepath"

@@ -1,7 +1,9 @@
-package: github.com/btcsuite/btcd
+package: github.com/stijnmeijer/btcd
+ignore:
+- btcutil
 import:
 - package: github.com/btcsuite/btclog
-- package: github.com/btcsuite/btcutil
+- package: github.com/stijnmeijer/btcutil
   subpackages:
   - bloom
   - hdkeychain

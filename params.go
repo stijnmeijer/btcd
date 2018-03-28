@@ -5,8 +5,8 @@
 package main
 
 import (
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/wire"
+	"github.com/stijnmeijer/btcd/chaincfg"
+	"github.com/stijnmeijer/btcd/wire"
 )
 
 // activeNetParams is a pointer to the parameters specific to the
@@ -53,6 +53,13 @@ var testNet3Params = params{
 var simNetParams = params{
 	Params:  &chaincfg.SimNetParams,
 	rpcPort: "18556",
+}
+
+// hydraNetParams contains parameters specific to the Hydra network
+// (wire.HydraNet).
+var hydraNetParams = params{
+	Params:  &chaincfg.HydraNetParams,
+	rpcPort: "18457",
 }
 
 // netName returns the name used when referring to a bitcoin network.  At the

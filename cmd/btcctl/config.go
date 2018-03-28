@@ -13,8 +13,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/btcsuite/btcd/btcjson"
-	"github.com/btcsuite/btcutil"
+	"github.com/stijnmeijer/btcd/btcjson"
+	"github.com/stijnmeijer/btcutil"
 	flags "github.com/jessevdk/go-flags"
 )
 
@@ -105,13 +105,14 @@ type config struct {
 	ProxyPass     string `long:"proxypass" default-mask:"-" description:"Password for proxy server"`
 	TestNet3      bool   `long:"testnet" description:"Connect to testnet"`
 	SimNet        bool   `long:"simnet" description:"Connect to the simulation test network"`
+	HydraNet			bool	 `long:"hydranet" description:"Conntect to the Hydra network"`
 	TLSSkipVerify bool   `long:"skipverify" description:"Do not verify tls certificates (not recommended!)"`
 	Wallet        bool   `long:"wallet" description:"Connect to wallet"`
 }
 
 // normalizeAddress returns addr with the passed default port appended if
 // there is not already a port specified.
-func normalizeAddress(addr string, useTestNet3, useSimNet, useWallet bool) string {
+func normalizeAddress(addr string, useTestNet3, useSimNet, useHydraNet, useWallet bool) string {
 	_, _, err := net.SplitHostPort(addr)
 	if err != nil {
 		var defaultPort string
@@ -127,6 +128,12 @@ func normalizeAddress(addr string, useTestNet3, useSimNet, useWallet bool) strin
 				defaultPort = "18554"
 			} else {
 				defaultPort = "18556"
+			}
+		case useHydraNet:
+			if useWallet {
+				defaultPort = "18457"
+			} else {
+				defaultPort = "18569"
 			}
 		default:
 			if useWallet {
@@ -254,8 +261,11 @@ func loadConfig() (*config, []string, error) {
 	if cfg.SimNet {
 		numNets++
 	}
+	if cfg.HydraNet {
+		numNets++
+	}
 	if numNets > 1 {
-		str := "%s: The testnet and simnet params can't be used " +
+		str := "%s: The testnet, hydranet and simnet params can't be used " +
 			"together -- choose one of the two"
 		err := fmt.Errorf(str, "loadConfig")
 		fmt.Fprintln(os.Stderr, err)
@@ -274,7 +284,7 @@ func loadConfig() (*config, []string, error) {
 	// Add default port to RPC server based on --testnet and --wallet flags
 	// if needed.
 	cfg.RPCServer = normalizeAddress(cfg.RPCServer, cfg.TestNet3,
-		cfg.SimNet, cfg.Wallet)
+		cfg.SimNet, cfg.HydraNet, cfg.Wallet)
 
 	return &cfg, remainingArgs, nil
 }
